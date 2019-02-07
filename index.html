@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>AXPHD bottoni</title>
+  </head>
+  <body>
+
+    <div class="nine">
+
+      <h1>Combinazioni</h1>
+
+      <input id="1" type="checkbox"/>
+      <label for="1">1</label>
+
+      <input id="2" type="checkbox"/>
+      <label for="2">2</label>
+
+      <input id="3" type="checkbox"/>
+      <label for="3">3</label>
+
+      <br>
+
+      <input id="4" type="checkbox"/>
+      <label for="4">4</label>
+
+      <input id="5" type="checkbox"/>
+      <label for="5">5</label>
+
+      <input id="6" type="checkbox"/>
+      <label for="6">6</label>
+
+      <br>
+
+      <input id="7" type="checkbox"/>
+      <label for="7">7</label>
+
+      <input id="8" type="checkbox"/>
+      <label for="8">8</label>
+
+      <input id="9" type="checkbox"/>
+      <label for="9">9</label>
+
+      <p id="selection"></p>
+
+    </div>
+
+    <div class="inputs"></div>
+
+    <style media="screen">
+      .nine {
+        text-align: center;
+      }
+
+      input[type="checkbox"] {
+        display: none;
+        -webkit-user-select: none;
+      }
+
+      input[type="checkbox"] + label {
+        text-align: center;
+        line-height: 50px;
+        color: white;
+        -webkit-user-select: none;
+        display: inline-block;
+        height: 50px;
+        width: 50px;
+        background-color: red;
+        margin: 5px;
+        border-radius: 100%;
+      }
+
+      input[type="checkbox"]:checked + label {
+        background-color: green;
+      }
+
+      .inputs {
+        columns: 3;
+      }
+
+      .inputs div {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px;
+      }
+
+      .inputs input {
+        width: 100%;
+      }
+
+      .inputs span {
+        padding-right: 10px;
+        line-height: 2;
+      }
+    </style>
+
+  <script src="magic.js" charset="utf-8"></script>
+  </body>
+</html>
