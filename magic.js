@@ -44,11 +44,20 @@ function next_comb(comb, n, k) {
 console.log(totale_comb);
 
 for (var i = 0; i < totale_comb.length; i++) {
-  inputs.innerHTML += `
-    <div>
-      <span>${totale_comb[i]}</span>
-      <input type="text" class="i${totale_comb[i].sort().join("")}" value="${totale_comb[i].sort().join("-")}">
-    </div>`
+  try {
+    var t = totale_comb[i].sort().join("");
+    inputs.innerHTML += `
+      <div>
+        <span>${totale_comb[i]}</span>
+        <input type="text" class="i${totale_comb[i].sort().join("")}" value="${data[t]}">
+      </div>`
+  } catch(e) {
+    inputs.innerHTML += `
+      <div>
+        <span>${totale_comb[i]}</span>
+        <input type="text" class="i${totale_comb[i].sort().join("")}" value="${totale_comb[i].sort().join("-")}">
+      </div>`
+  }
 }
 
 /*
@@ -72,6 +81,7 @@ checks.forEach(c => {
         if(selected.length == 3) {
           var s = ".i" + selected.sort().join('');
           s = document.querySelector(s).value;
+
           document.getElementById("selection").innerHTML = "Url: " + s;
         }
       } else {
@@ -83,3 +93,33 @@ checks.forEach(c => {
     }
   })
 })
+
+exportToJSON()
+
+function exportToJSON() {
+  var res = new Object();
+  totale_comb.forEach(t => {
+    var inp = inputs.querySelector(".i" + t.sort().join(""));
+    res[t.sort().join("")] = inp.value;
+  })
+  document.querySelector("pre").innerHTML = syntaxHighlight(JSON.stringify(res, undefined, 2));
+}
+
+function syntaxHighlight(json) {
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
