@@ -22,6 +22,11 @@
 - Clearing
 - Media Queries
 */
+
+:root {
+  --background: #33C3F0;
+}
+
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .container {
@@ -30,14 +35,16 @@
   max-width: 960px;
   margin: 0 auto;
   padding: 0 20px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .column,
 .columns {
   width: 100%;
   float: left;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 /* For devices larger than 400px */
@@ -324,7 +331,8 @@ input[type="button"] {
   border-radius: 4px;
   border: 1px solid #bbb;
   cursor: pointer;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .button:hover,
@@ -348,8 +356,8 @@ input[type="submit"].button-primary,
 input[type="reset"].button-primary,
 input[type="button"].button-primary {
   color: #FFF;
-  background-color: #33C3F0;
-  border-color: #33C3F0;
+  background-color: var(--background);
+  border-color: var(--background);
 }
 
 .button.button-primary:hover,
@@ -384,8 +392,10 @@ select {
   background-color: #fff;
   border: 1px solid #D1D1D1;
   border-radius: 4px;
-  box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 /* Removes awkward default styles on some inputs for iOS */
@@ -417,7 +427,7 @@ input[type="url"]:focus,
 input[type="password"]:focus,
 textarea:focus,
 select:focus {
-  border: 1px solid #33C3F0;
+  border: 1px solid var(--background);
   outline: 0;
 }
 
@@ -515,12 +525,12 @@ button,
   margin-bottom: 1rem;
 }
 
-input,
+/* input,
 textarea,
 select,
 fieldset {
   margin-bottom: 1.5rem;
-}
+} */
 
 pre,
 blockquote,
@@ -538,12 +548,14 @@ form {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .u-full-width {
   width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .u-max-full-width {
   max-width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .u-pull-right {
@@ -616,40 +628,46 @@ input[type="checkbox"] {
 input[type="checkbox"]+label {
   text-align: center;
   line-height: 50px;
-  color: white;
   -webkit-user-select: none;
   display: inline-block;
   height: 50px;
   width: 50px;
-  background-color: red;
   margin: 5px;
   border-radius: 100%;
+  border: 1px solid var(--background);
 }
 
-input[type="checkbox"]:checked+label {
-  background-color: green;
+input[type="checkbox"]:checked + label {
+  color: white;
+  background-color: var(--background);
 }
 
 .inputs {
-  columns: 1;
+  -webkit-columns: 1;
+          columns: 1;
   display: block;
   margin: 6rem 0;
 }
 
 @media (min-width: 400px) {
   .inputs {
-    columns: 2;
+    -webkit-columns: 2;
+            columns: 2;
   }
 }
 
 @media (min-width: 550px) {
   .inputs {
-    columns: 4;
+    -webkit-columns: 4;
+            columns: 4;
   }
 }
 
 .inputs div {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  padding: 1rem;
 }
 
 .inputs input {
@@ -680,4 +698,9 @@ input[type="checkbox"]:checked+label {
 
 .key {
   color: red;
+}
+
+.primary {
+  border-radius: 4px;
+  background-color: var(--background);
 }
