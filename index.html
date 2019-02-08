@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>AXPHD bottoni</title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="skeleton.css">
   </head>
-  <body>
+  <body class="container">
 
     <div class="nine">
-
-      <h1>Combinazioni</h1>
 
       <input id="1" type="checkbox"/>
       <label for="1">1</label>
@@ -47,63 +47,8 @@
 
     <div class="inputs"></div>
 
-    <button type="button" onclick="exportToJSON()" name="button">export</button><br>
-    <pre></pre>
-
-    <style media="screen">
-      .nine {
-        text-align: center;
-      }
-
-      input[type="checkbox"] {
-        display: none;
-        -webkit-user-select: none;
-      }
-
-      input[type="checkbox"] + label {
-        text-align: center;
-        line-height: 50px;
-        color: white;
-        -webkit-user-select: none;
-        display: inline-block;
-        height: 50px;
-        width: 50px;
-        background-color: red;
-        margin: 5px;
-        border-radius: 100%;
-      }
-
-      input[type="checkbox"]:checked + label {
-        background-color: green;
-      }
-
-      .inputs {
-        columns: 6;
-      }
-
-      .inputs div {
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 10px;
-      }
-
-      .inputs input {
-        width: 100%;
-      }
-
-      .inputs span {
-        padding-right: 10px;
-        line-height: 2;
-      }
-
-      pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
-.string { color: green; }
-.number { color: darkorange; }
-.boolean { color: blue; }
-.null { color: magenta; }
-.key { color: red; }
-    </style>
+    <button class="button-primary" type="button" onclick="exportToJSON()" name="button">export</button><br>
+    <pre><code></code></pre>
 
   <script src="magic.js" charset="utf-8"></script>
   </body>

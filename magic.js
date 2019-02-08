@@ -102,7 +102,8 @@ function exportToJSON() {
     var inp = inputs.querySelector(".i" + t.sort().join(""));
     res[t.sort().join("")] = inp.value;
   })
-  document.querySelector("pre").innerHTML = syntaxHighlight(JSON.stringify(res, undefined, 2));
+  document.querySelector("code").innerHTML = syntaxHighlight(JSON.stringify(res, undefined, 2));
+  console.log(res);
 }
 
 function syntaxHighlight(json) {
