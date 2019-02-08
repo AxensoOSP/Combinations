@@ -95,14 +95,15 @@ checks.forEach(function(c) {
         c.checked = false;
       }
     } else {
-      s = ".i" + selected.sort().join("");
-      document.querySelector(s).classList.remove("primary");
+      if(selected.length == 3) {
+        s = ".i" + selected.sort().join("");
+        document.querySelector(s).classList.remove("primary");
+      }
       selected.splice(selected.indexOf(c.id), 1);
       document.getElementById("selection").innerHTML = "";
     }
   });
 });
-exportToJSON();
 
 function exportToJSON() {
   var res = new Object();
@@ -110,9 +111,7 @@ function exportToJSON() {
     var inp = inputs.querySelector(".i" + t.sort().join(""));
     res[t.sort().join("")] = inp.querySelector("input").value;
   });
-  document.querySelector("code").innerHTML = syntaxHighlight(
-    JSON.stringify(res, undefined, 2)
-  );
+  document.querySelector("pre").innerHTML = "<code>" + syntaxHighlight(JSON.stringify(res, undefined, 2)) + "</code>";
   console.log(res);
 }
 

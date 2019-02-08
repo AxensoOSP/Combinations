@@ -704,3 +704,7 @@ input[type="checkbox"]:checked + label {
   border-radius: 4px;
   background-color: var(--background);
 }
+
+.primary span {
+  color: white;
+}
