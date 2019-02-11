@@ -50,8 +50,6 @@ function next_comb(comb, n, k) {
   return comb;
 }
 
-console.log(totale_comb);
-
 for (var i = 0; i < totale_comb.length; i++) {
   try {
     var t = totale_comb[i].sort().join("");
@@ -60,6 +58,7 @@ for (var i = 0; i < totale_comb.length; i++) {
       .concat(totale_comb[i].sort().join(""), '" value="')
       .concat(data[t], '">\n</div>');
   } catch (e) {
+    console.log("I dati sono presenti");
     inputs.innerHTML += '\n<div class="i'
       .concat(totale_comb[i].sort().join(""), '">\n<span>')
       .concat(totale_comb[i], '</span>\n<input type="text" value="')
@@ -111,8 +110,7 @@ function exportToJSON() {
     var inp = inputs.querySelector(".i" + t.sort().join(""));
     res[t.sort().join("")] = inp.querySelector("input").value;
   });
-  document.querySelector("pre").innerHTML = "<code>" + syntaxHighlight(JSON.stringify(res, undefined, 2)) + "</code>";
-  console.log(res);
+  document.querySelector("pre").innerHTML = "<code>var data = " + syntaxHighlight(JSON.stringify(res, undefined, 2)) + "</code>";
 }
 
 function syntaxHighlight(json) {
@@ -141,11 +139,6 @@ function syntaxHighlight(json) {
     }
   );
 }
-
-
-
-
-
 
 
 // var checks = document.querySelectorAll("input[type='checkbox']"),
