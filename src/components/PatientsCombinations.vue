@@ -8,7 +8,7 @@
         <div class="column" v-for="c in num" v-bind:key="key_i + c">
 
           <label class="label">Patient {{ c }}</label>
-          <input class="input" type="text" name="add" placeholder="Aggiungi combinazione" v-on:keyup.enter="addPatientCombination(c, $event)">
+          <input :ref="'field-'+ c" class="input" type="text" name="add" placeholder="Combinazione" v-on:keyup.enter="addPatientCombination(c, $event)">
 
           <ul>
             <li v-for="(p, i) in patients[c - 1]" v-bind:key="i">
@@ -44,22 +44,19 @@ export default {
   methods: {
 
     addPatientCombination (c, e) {
-      // // Aggiungere una funzione che controlla che l'input sia corretto
-      // if(!Array.isArray(this.patients[c - 1]))
-      //   this.patients[c - 1] = new Array;
-      //
-      // this.patients[c - 1].push(parseInt(e.target.value));
+      this.$emit('addPatientCombination', [c, e.target.value]);
 
-      this.$emit('addPatientCombination', [c, parseInt(e.target.value)]);
-
-      e.target.value = "";
       this.key_i++;
+      e.target.value = "";
+
+      this.$nextTick(() => {
+        this.$refs["field-" + c][0].focus();
+      });
     },
 
     deletePatientCombination (c, i) {
       this.$emit('deletePatientCombination', [c, i]);
 
-      // this.patients[c - 1].splice(i, 1);
       this.key_i--;
     }
 

@@ -6,7 +6,7 @@
         <div class="column" v-for="i in patients_n" v-bind:key="i">
 
           <label class="label">Patient {{ i }}</label>
-          <input class="input" type="text" v-model="patients_urls[i - 1]">
+          <input class="input" type="text" v-model="patients_urls[i - 1]" placeholder="Url">
           <button class="button is-light" type="button" v-on:click="$emit('updatePatientUrl', [i, patients_urls[i - 1]])">update</button>
 
         </div>

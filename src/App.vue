@@ -17,6 +17,10 @@
     v-bind:patients_n="this.patients_n"
     v-on:updatePatientUrl="updatePatientUrl($event)"
   ></PatientsInformations>
+  <CodeExport
+    v-bind:patients_combinations="this.patients_combinations"
+    v-bind:patients_urls="this.patients_urls"
+  ></CodeExport>
 </div>
 </template>
 
@@ -25,6 +29,7 @@ import { db } from './Firebase'
 import Keypad from './components/Keypad.vue'
 import PatientsCombinations from './components/PatientsCombinations.vue'
 import PatientsInformations from './components/PatientsInformations.vue'
+import CodeExport from './components/CodeExport.vue'
 
 const patients = db.collection("patients_urls")
 
@@ -34,7 +39,8 @@ export default {
   components: {
     Keypad,
     PatientsCombinations,
-    PatientsInformations
+    PatientsInformations,
+    CodeExport
   },
 
   computed: {
@@ -77,7 +83,7 @@ export default {
       for (var i = 0; i < this.patients_combinations.length; i++) {
         if(this.patients_combinations[i]) {
           for (var k = 0; k < this.patients_combinations[i].length; k++) {
-            if(String(this.patients_combinations[i][k]).split("").sort().join("") == e) {
+            if(this.patients_combinations[i][k].split(" ").sort().join(" ") == e) {
               this.url = this.patients_urls[i];
               return; // in caso di codici duplicati prende il primo
             }
@@ -102,10 +108,17 @@ export default {
     },
 
     deletePatientCombination (e) {
-      var c = String(e[0]);
+      var c = String(e[0]),
+          t = this.patients[c - 1]['keycodes'];
+
+      if(t.length > 1) {
+        t.splice(parseInt(e[1]), 1);
+      } else {
+        t = [];
+      }
 
       patients.doc(c).update({
-        keycodes: this.patients[c - 1]['keycodes'].splice(e[1] - 1, 1)
+        keycodes: t
       })
     }
 

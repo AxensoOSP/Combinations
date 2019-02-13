@@ -38,18 +38,18 @@ export default {
 
       if (a.target.checked) {
         if (this.selected.length < 3) {
-          this.selected.push(a.target.id.charAt(1));
+          this.selected.push(a.target.id.substring(1));
         } else {
           a.target.checked = false;
         }
       } else {
-        this.selected.splice(this.selected.indexOf(a.target.id.charAt(1)), 1);
+        this.selected.splice(this.selected.indexOf(a.target.id.substring(1)), 1);
         this.$emit("clearUrl");
       }
 
       if(this.selected.length == 3) {
         // Cerco il paziente corrispondente
-        this.$emit("findPatient", this.selected.sort().join(""));
+        this.$emit("findPatient", this.selected.sort().join(" "));
       }
 
       // if (this.selected.length == 3) {
