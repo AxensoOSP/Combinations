@@ -1,12 +1,11 @@
 <template lang="html">
-  <div id="keypad">
-    <div class="inputs">
+  <div id="keypad" class="hero-body">
+    <div class="inputs container">
       <div v-bind:key="i" v-for="i in this.btns">
         <input :id="'b' + i" type="checkbox" v-on:click="updateSelectedOnChange(i, $event)"/>
-        <label :for="'b' + i">{{ i }}</label>
+        <label class="button is-light" :for="'b' + i">{{ i }}</label>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -73,20 +72,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  #keypad {
-    text-align: center;
-  }
-
   .inputs {
-    margin: 6rem 0;
+    text-align: center;
   }
 
   .inputs div {
     display: inline-block;
-  }
-
-  .inputs p {
-    margin: 6rem 0;
   }
 
   input[type="checkbox"] {
@@ -96,18 +87,18 @@ export default {
 
   input[type="checkbox"]+label {
     text-align: center;
-    line-height: 50px;
+    line-height: 37px;
     -webkit-user-select: none;
     display: inline-block;
     height: 50px;
     width: 50px;
     margin: 5px;
     border-radius: 100%;
-    border: 1px solid #33C3F0;
+    /* border: 1px solid #33C3F0; */
   }
 
   input[type="checkbox"]:checked + label {
     color: white;
-    background-color: #33C3F0;
+    background-color: #363636;
   }
 </style>

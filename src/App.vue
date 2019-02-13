@@ -1,42 +1,71 @@
 <template>
-<div id="app">
+<div id="app" class="hero">
   <Keypad
     v-bind:btns="this.btns"
     v-on:findPatient="findPatient($event)"
     v-on:clearUrl="url = ''"
   ></Keypad>
-  <PatientsInformations
-    v-bind:patients_urls="this.patients_urls"
-    v-bind:patients_n="this.patients_n"
-  ></PatientsInformations>
-  <Patients
+  <PatientsCombinations
     v-bind:url="this.url"
     v-bind:num="this.patients_n"
     v-bind:patients="this.patients_combinations"
-  ></Patients>
+    v-on:addPatientCombination="addPatientCombination($event)"
+    v-on:deletePatientCombination="deletePatientCombination($event)"
+  ></PatientsCombinations>
+  <PatientsInformations
+    v-bind:patients_urls="this.patients_urls"
+    v-bind:patients_n="this.patients_n"
+    v-on:updatePatientUrl="updatePatientUrl($event)"
+  ></PatientsInformations>
 </div>
 </template>
 
 <script>
+import { db } from './Firebase'
 import Keypad from './components/Keypad.vue'
-import Patients from './components/Patients.vue'
+import PatientsCombinations from './components/PatientsCombinations.vue'
 import PatientsInformations from './components/PatientsInformations.vue'
+
+const patients = db.collection("patients_urls")
 
 export default {
   name: 'app',
+
   components: {
     Keypad,
-    Patients,
+    PatientsCombinations,
     PatientsInformations
   },
 
-  data() {
+  computed: {
+
+    patients_combinations () {
+      var r = [];
+      for (var i = 0; i < this.patients.length; i++)
+        r.push(this.patients[i]['keycodes'])
+      return r;
+    },
+
+    patients_urls () {
+      var r = [];
+      for (var i = 0; i < this.patients.length; i++)
+        r.push(this.patients[i] ? this.patients[i]['url'] : "")
+      return r;
+    }
+
+  },
+
+  firestore () {
+    return {
+      patients: patients,
+    }
+  },
+
+  data () {
     return {
       btns: 13, // TODO: sostituire con i nomi delle classi e prendere il numero in base alla lunghezza dell'array
       url: "",
       patients_n: 6,
-      patients_combinations: [],
-      patients_urls: [],
 
       // totale_comb: []
     }
@@ -48,12 +77,37 @@ export default {
       for (var i = 0; i < this.patients_combinations.length; i++) {
         if(this.patients_combinations[i]) {
           for (var k = 0; k < this.patients_combinations[i].length; k++) {
-            if(this.patients_combinations[i][k] == e)
+            if(String(this.patients_combinations[i][k]).split("").sort().join("") == e) {
               this.url = this.patients_urls[i];
+              return; // in caso di codici duplicati prende il primo
+            }
           }
         }
       }
     },
+
+    updatePatientUrl (e) {
+      var i = String(e[0]);
+      patients.doc(i).update({
+        url: e[1]
+      })
+    },
+
+    addPatientCombination (e) {
+      var c = String(e[0]);
+
+      patients.doc(c).update({
+        keycodes: this.patients[c - 1]['keycodes'].concat(e[1])
+      })
+    },
+
+    deletePatientCombination (e) {
+      var c = String(e[0]);
+
+      patients.doc(c).update({
+        keycodes: this.patients[c - 1]['keycodes'].splice(e[1] - 1, 1)
+      })
+    }
 
     // next_comb (comb, n, k) {
     //   var i = k - 1;
@@ -97,13 +151,7 @@ export default {
     // }
     //
     // this.totale_comb = totale_comb;
-    
+
   }
 }
 </script>
-
-<style media="screen">
-html {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-</style>
