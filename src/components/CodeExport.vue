@@ -2,11 +2,7 @@
   <div class="hero-body">
     <div class="container">
       <button type="button" class="button is-primary" v-on:click="generateJSON()">Genera JSON</button>
-      <pre v-if="jsonString">
-        <code>
-          {{ jsonString }}
-        </code>
-      </pre>
+      <pre v-if="jsonString"><code>var data = <span v-html="jsonString"></span></code></pre>
     </div>
   </div>
 </template>
@@ -20,7 +16,7 @@ export default {
     patients_urls: Array
   },
 
-  data () {
+  data() {
     return {
       jsonString: null
     }
@@ -28,7 +24,7 @@ export default {
 
   methods: {
 
-    generateJSON () {
+    generateJSON() {
       var r = {};
       for (var i = 0; i < this.patients_combinations.length; i++) {
         var t = this.patients_combinations[i];
@@ -36,7 +32,7 @@ export default {
           r[t[k].split(" ").join("-")] = this.patients_urls[i];
         }
       }
-      this.jsonString = JSON.stringify(r);
+      this.jsonString = JSON.stringify(r, null, ' ');
     }
 
   }

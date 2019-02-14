@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="keypad" class="hero-body">
     <div class="inputs container">
-      <div v-bind:key="i" v-for="i in this.btns">
+      <div v-bind:key="i" v-for="i in 13">
         <input :id="'b' + i" type="checkbox" v-on:click="updateSelectedOnChange(i, $event)"/>
         <label class="button is-light" :for="'b' + i">{{ i }}</label>
       </div>
