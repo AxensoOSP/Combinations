@@ -1,5 +1,3 @@
-# axenso_combinazioni
-
 ## Project setup
 ```
 npm install
